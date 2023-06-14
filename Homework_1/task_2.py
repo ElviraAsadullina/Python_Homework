@@ -11,9 +11,16 @@ def check_input():
 
 EXCEPTION_1, EXCEPTION_2 = 0, 1
 START = 2
-BORDER_PRIME = 1
+is_primary = True
 
 num = check_input()
-a = [i for i in range(START, num + 1) if (num / i).is_integer()]
-print('Простое' if len(a) == BORDER_PRIME else 'Ни простое, ни составное' if num in [EXCEPTION_1, EXCEPTION_2]
-      else 'Составное')
+
+if num == EXCEPTION_1 or num == EXCEPTION_2:
+    print('Ни простое, ни составное')
+else:
+    for i in range(START, int(num ** 0.5) + 1):
+        if num % i == 0:
+            is_primary = False
+            print('Составное')
+    if is_primary:
+        print('Простое')
