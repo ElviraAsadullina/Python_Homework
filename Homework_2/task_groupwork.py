@@ -52,8 +52,6 @@ def go_menu(total_amount, ops_count):
 
     choice = input('Choose action: ')
     amount, cash_back, wd_fee, w_tax = 0.0, 0.0, 0.0, 0.0
-    w_tax = calc_wealth_tax(w_tax, total_amount)
-    total_amount -= w_tax
 
     match choice:
         case '1' | '2':
@@ -66,15 +64,15 @@ def go_menu(total_amount, ops_count):
                     total_amount += amount
                     msg = 'topped up'
 
+                w_tax = calc_wealth_tax(w_tax, total_amount)
                 cash_back = calc_cashback(cash_back, total_amount, ops_count)
                 wd_fee = calc_withdraw_fee(wd_fee, amount, choice)
 
-                if total_amount + cash_back - wd_fee < 0:
-                    total_amount += amount
+                if total_amount + cash_back - wd_fee - w_tax < 0:
+                    total_amount += amount - w_tax
                     cash_back, wd_fee = 0.0, 0.0
                     print('Operation failed! Total withdraw can not exceed balance!')
                 else:
-                    total_amount += cash_back - wd_fee
                     print_message(f'\nSuccessfully {msg} {amount} c.u.')
                     ops_count += 1
             else:
@@ -85,6 +83,8 @@ def go_menu(total_amount, ops_count):
         case _:
             print_message('Invalid input! Please try again!')
 
+    w_tax = calc_wealth_tax(w_tax, total_amount)
+    total_amount += cash_back - wd_fee - w_tax
     print_balance(total_amount, wd_fee, cash_back, w_tax)
     go_menu(total_amount, ops_count)
 
