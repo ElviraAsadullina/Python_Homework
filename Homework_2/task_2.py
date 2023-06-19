@@ -10,8 +10,11 @@ while True:
 
 def reduce_fraction(x, y):
     m = min(x, y)
-    if x % y == 0 or y % x == 0:
-        x, y = x / m, y / m
+    if m == 0:
+        return 0
+    else:
+        if x % y == 0 or y % x == 0:
+            x, y = x / m, y / m
     return f'{int(x)}/{int(y)}'
 
 
