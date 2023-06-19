@@ -15,6 +15,8 @@ def reduce_fraction(x, y):
     else:
         if x % y == 0 or y % x == 0:
             x, y = x / m, y / m
+        if x == y:
+            return int(x)
     return f'{int(x)}/{int(y)}'
 
 
