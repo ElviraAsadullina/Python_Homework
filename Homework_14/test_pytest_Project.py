@@ -1,3 +1,6 @@
+# На семинаре 13 был создан проект по работе с пользователями (имя, id, уровень).
+# Напишите 3-7 тестов pytest для данного проекта.
+# Используйте фикстуры.
 import json
 from tempfile import NamedTemporaryFile
 import pytest
